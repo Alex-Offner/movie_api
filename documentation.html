@@ -14,5 +14,86 @@
       movies, their directors and genres. You will be able to sign up and create
       a list of your favourite movies.
     </p>
+
+    <h1>Request method and URL endpoints</h1>
+    <table style="width:100%">
+      <tr>
+        <th>Request</th>
+        <th>URL</th>
+        <th>HTTP METHOD</th>
+        <th>Request body data format</th>
+        <th>Response body data format</th>
+      </tr>
+      <tr>
+        <td>Return a list of all movies.</td>
+        <td>"/movies"</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>
+          A JSON object holding data about all movies. Example: { title: "The
+          dark knight", title: "Batman returns", title: "Forest Gump"}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Return data (like desciption, genre, director or imageURL) about a
+          single movie by title.
+        </td>
+        <td>"/movies/[title]"</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>
+          A JSON object holding data about a single movie, containing
+          description, genre, director and imageURL. Example: { title: "The dark
+          knight", genre: "action", director: "Christopher Nolan" }
+        </td>
+      </tr>
+      <tr>
+        <td>Return data about a genre (description) by name.</td>
+        <td>"/movies/genres/[name]"</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>
+          A JSON object holding data about a genre. Example: { genre: "action",
+          desciption: "Action fiction is the literary genre that includes spy
+          novels, adventure stories, tales of terror and intrigue ("cloak and
+          dagger") and mysteries. This kind of story utilizes suspense, the
+          tension that is built up when the reader wishes to know how the
+          conflict between the protagonist and antagonist is going to be
+          resolved or what the solution to the puzzle of a thriller is." }
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Return data about a director (like bio, birth year, death year) by
+          name.
+        </td>
+        <td>"/movies/directors/[name]"</td>
+        <td>GET</td>
+        <td>None</td>
+        <td>
+          A JSON object holding data about a director. Example: { name:
+          "Christopher Nolan", bio: "...", birth year: "30 July 1970", death
+          year: "" }
+        </td>
+      </tr>
+      <tr>
+        <td>Registration of new user.</td>
+        <td>"/users"</td>
+        <td>POST</td>
+        <td>
+          A JSON object holding data about the user. Example: { name: "Alexander
+          Offner", username: "Alex-Offi" }
+        </td>
+        <td>
+          A JSON object holding data about the user that was added.
+        </td>
+        <td>Allows users to update their username.</td>
+        <td>"/users/[username]"</td>
+        <td>PUT</td>
+        <td>None</td>
+        <td>A text message, indicating that the username was updated.</td>
+      </tr>
+    </table>
   </body>
 </html>

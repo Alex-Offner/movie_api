@@ -1,12 +1,15 @@
 //Loading the express and morgan module into the file
 const express = require("express"),
-  morgan = require("morgan");
+  morgan = require("morgan"),
+  bodyParser = require("body-parser");
 
 //app allows you to call the express module accordingly
 const app = express();
 
+app.use(bodyParser.json());
+
 //Array of top movies
-let topMovies = [
+let movies = [
   {
     title: "The Fountain",
     director: "Darren Aronofsky",
@@ -64,18 +67,77 @@ to log data such as IP address, time of request and request method; this will
 happen with every request*/
 app.use(morgan("common"));
 
+/*
 app.get("/", (req, res) => {
   res.send("Welcome to my movie favourite movies!");
 });
+*/
 
 /* With express(), call the middleware layer express.static that looks for the
 "public" folder and routes all requests to this folder to check if for example
 a file is availabe */
 app.use(express.static("public"));
 
+/*
 //This GET reqeuest loads the topMovies array as a json
 app.get("/movies", (req, res) => {
   res.json(topMovies);
+});
+*/
+//GET request for all the movies
+app.get("/movies", (req, res) => {
+  res.send("Succesful GET request to return the data of all the movies");
+});
+
+/* This is for the "in-memory" array
+app.get("/movies", (req, res) => {
+  res.json(movies);
+});
+*/
+
+/* This is for the "in-memory" array
+app.get("/movies/:title", (req, res) => {
+  res.json(
+    movies.find(movie => {
+      return movie.title === req.params.title;
+    })
+  );
+});
+*/
+
+//GET data searched by movie title
+app.get("/movies/:title", (req, res) => {
+  res.send("Succesfully get all the data about a specific movie");
+});
+
+//GET data about a genre by name
+app.get("/movies/genres/:name", (req, res) => {
+  res.send("Succesfully get the data about a genre");
+});
+
+//GET data about a director by name
+app.get("/movies/directors/:name", (req, res) => {
+  res.send("Succesfully get the data about a director");
+});
+
+//POST a new user with a username
+app.post("/users", (req, res) => {
+  let newUser = req.body;
+
+  if (!newUser.name || !newUser.username) {
+    const message = "Missing name and/or username!";
+    res.send(message);
+  } else {
+    res.send(req.body.username + " was succesfully added.");
+  }
+});
+
+//PUT a new username for a user
+app.put("/users/:username", (req, res) => {
+  //search for user by name: let user = users.find(user => { return user.username === req.params.username};)
+
+  //if-else for if user was found or not
+  res.send(req.params.username + " was updated.");
 });
 
 //Another middleware layer that will run on all reqeusts and check for errors
