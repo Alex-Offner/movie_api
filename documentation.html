@@ -159,10 +159,10 @@
       <tr>
         <td>Allow user to remove a movie to their list of favourites</td>
         <td>"/users/[username]/favouriteMovies/[MovieID]"</td>
-        <td>POST</td>
+        <td>DELETE</td>
         <td>none</td>
         <td>
-          A JSON object holding data about the user (including the added movie).
+          A JSON object holding data about the user (without the removed movie).
           Example: { "favouriteMovies": [ "60a6a7c0dae586ee3e0cc29e" ], "_id":
           "60abf50382ccbe2dd8d8270f", "username": "Hans Peter", "password":
           "new123", "email": "newtest@googlemail.com", "birthday":

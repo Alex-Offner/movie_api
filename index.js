@@ -61,6 +61,7 @@ app.get("/movies/:Title", (req, res) => {
 //Get a genre by name
 app.get("/movies/Genre/:Name", (req, res) => {
   Movies.findOne({ "Genre.Name": req.params.Name })
+    .select("Genre")
     .then(genre => {
       if (genre) {
         res.json(genre);
@@ -77,6 +78,7 @@ app.get("/movies/Genre/:Name", (req, res) => {
 //Get a director by name
 app.get("/movies/Director/:Name", (req, res) => {
   Movies.findOne({ "Director.Name": req.params.Name })
+    .select("Director")
     .then(director => {
       if (director) {
         res.json(director);
@@ -235,7 +237,7 @@ app.post("/users/:username/favouriteMovies/:MovieID", (req, res) => {
 });
 
 //Remove a movie from user's favourite list
-app.post("/users/:username/favouriteMovies/:MovieID", (req, res) => {
+app.delete("/users/:username/favouriteMovies/:MovieID", (req, res) => {
   Users.findOneAndUpdate(
     { username: req.params.username },
     {
