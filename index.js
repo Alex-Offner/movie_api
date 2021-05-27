@@ -1,16 +1,21 @@
 //Loading the express and morgan module into the file
 const express = require("express"),
   morgan = require("morgan"),
-  bodyParser = require("body-parser");
+  bodyParser = require("body-parser"),
+  passport = require("passport");
+require("./passport");
 
 //app allows you to call the express module accordingly
 const app = express();
 app.use(bodyParser.json());
+
 /* With express(), call the middleware layer morgan that uses the common parameter
 to log data such as IP address, time of request and request method; this will
 happen with every request*/
 app.use(morgan("common"));
 
+//imports auth file into index.js, (app) lets auth access express
+let auth = require("./auth")(app);
 /* With express(), call the middleware layer express.static that looks for the
 "public" folder and routes all requests to this folder to check if for example
 a file is availabe */
@@ -31,16 +36,20 @@ mongoose.connect("mongodb://localhost:27017/[myFlixDB]", {
 });
 
 //Get all movies
-app.get("/movies", (req, res) => {
-  Movies.find()
-    .then(movies => {
-      res.status(201).json(movies);
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.find()
+      .then(movies => {
+        res.status(201).json(movies);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //Get a movie by moviename
 app.get("/movies/:Title", (req, res) => {
