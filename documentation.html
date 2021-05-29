@@ -144,6 +144,25 @@
         </td>
       </tr>
       <tr>
+        <td>
+          Update a users information (like password, username, email, or
+          birthday)
+        </td>
+        <td>"/users/[username]"</td>
+        <td>PUT</td>
+        <td>
+          A JSON object holding updated data about the user. { ID: Integer,
+          username: String, password: String, email: String, birthday: Date }
+          Example: { "username" : "Hans Peter", "password" : "Test123", "email"
+          : "test@googlemail.com", "birthday" : "15/03/1912" }
+        </td>
+        <td>
+          A JSON object holding the new updated data about the user. Example: {
+          "username" : "Hans Peter", "password" : "Test123", "email" :
+          "test@googlemail.com", "birthday" : "03/15/1912" }
+        </td>
+      </tr>
+      <tr>
         <td>Allow user to add a movie to their list of favourites</td>
         <td>"/users/[username]/favouriteMovies/[MovieID]"</td>
         <td>POST</td>

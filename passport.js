@@ -44,7 +44,7 @@ passport.use(
     (jwtPayload, callback) => {
       return Users.findById(jwtPayload._id)
         .then(user => {
-          return callack(null, user);
+          return callback(null, user);
         })
         .catch(error => {
           return callback(error);
