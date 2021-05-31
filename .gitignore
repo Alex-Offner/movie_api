@@ -1,2 +1,5 @@
-node_modules/
-stylelint.config.js
+node_modules/,
+stylelint.config.js,
+actors.json,
+moves.json,
+users.json
