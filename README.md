@@ -2,8 +2,9 @@
 
 <body>
   <p>
-    This web application will provide acces to information about different
-    movies, their directors and genres. You will be able to sign up and create
+    This web application will provide access to information about different
+    movies, their directors and genres. You will find a list of actors and the movies they played in.
+    You will be able to sign up and create
     a list of your favourite movies.
   </p>
 
