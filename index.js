@@ -37,17 +37,17 @@ const Users = Models.User;
 const Actors = Models.Actor;
 
 //connecting to my database [myFlixDB]
-/*mongoose.connect("mongodb://localhost:27017/[myFlixDB]", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}); */
-
-//connecting to my online database on mongodb.com
-mongoose.connect(process.env.CONNECTION_URI, {
+mongoose.connect("mongodb://localhost:27017/[myFlixDB]", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
+//connecting to my online database on mongodb.com
+/*mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+*/
 //Get all movies
 app.get(
   "/movies",
