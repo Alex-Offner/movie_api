@@ -176,7 +176,7 @@ app.post(
     check(
       "username",
       "Username is required and needs to be at least 5 characters long"
-    ).isAlphanumeric(),
+    ).isLength({ min: 5 }),
     check(
       "username",
       "Username must contain only alphanumeric characters"
