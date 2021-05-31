@@ -1,8 +1,6 @@
 # movie_api
 
 <body>
-  <h1>Movie_api</h1>
-
   <p>
     This web application will provide acces to information about different
     movies, their directors and genres. You will be able to sign up and create
