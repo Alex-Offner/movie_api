@@ -2,8 +2,11 @@
 const express = require("express"),
   morgan = require("morgan"),
   bodyParser = require("body-parser"),
-  passport = require("passport");
+  passport = require("passport"),
+  cors = require("cors");
 require("./passport");
+
+const { check, validationResult } = require("express-validator");
 
 //app allows you to call the express module accordingly
 const app = express();
@@ -14,8 +17,12 @@ to log data such as IP address, time of request and request method; this will
 happen with every request*/
 app.use(morgan("common"));
 
+//call cross-aplication resource sharing (CORS)
+app.use(cors());
+
 //imports auth file into index.js, (app) lets auth access express
 let auth = require("./auth")(app);
+
 /* With express(), call the middleware layer express.static that looks for the
 "public" folder and routes all requests to this folder to check if for example
 a file is availabe */
@@ -157,32 +164,55 @@ password: String,
 email: String,
 birthday: Date
 } */
-app.post("/users", (req, res) => {
-  Users.findOne({ username: req.body.username })
-    .then(user => {
-      if (user) {
-        return res.status(400).send(req.body.username + "already exists");
-      } else {
-        Users.create({
-          username: req.body.username,
-          password: req.body.password,
-          email: req.body.email,
-          birthday: req.body.birthday
-        })
-          .then(user => {
-            res.status(201).json(user);
+app.post(
+  "/users",
+  [
+    check(
+      "username",
+      "Username is required and needs to be at least 5 characters long"
+    ).isAlphanumeric(),
+    check(
+      "username",
+      "Username must contain only alphanumeric characters"
+    ).isAlphanumeric(),
+    check("password", "Password is required")
+      .not()
+      .isEmpty(),
+    check("email", "Email does not appear to be vailid").isEmail()
+  ],
+  (req, res) => {
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    let hashedPassword = Users.hashPassword(req.body.password);
+    Users.findOne({ username: req.body.username })
+      .then(user => {
+        if (user) {
+          return res.status(400).send(req.body.username + "already exists");
+        } else {
+          Users.create({
+            username: req.body.username,
+            password: hashedPassword,
+            email: req.body.email,
+            birthday: req.body.birthday
           })
-          .catch(error => {
-            console.error(error);
-            res.status(500).send("Error: " + error);
-          });
-      }
-    })
-    .catch(error => {
-      console.error(error);
-      res.status(500).send("Error: " + error);
-    });
-});
+            .then(user => {
+              res.status(201).json(user);
+            })
+            .catch(error => {
+              console.error(error);
+              res.status(500).send("Error: " + error);
+            });
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
 
 //Update a user's information by username
 /* A JSON format is required
@@ -197,14 +227,35 @@ app.post("/users", (req, res) => {
 } */
 app.put(
   "/users/:username",
+  [
+    check(
+      "username",
+      "Username is required and needs to be at least 5 characters long"
+    ).isAlphanumeric(),
+    check(
+      "username",
+      "Username must contain only alphanumeric characters"
+    ).isAlphanumeric(),
+    check("password", "Password is required")
+      .not()
+      .isEmpty(),
+    check("email", "Email does not appear to be vailid").isEmail()
+  ],
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    let hashedPassword = Users.hashPassword(req.body.password);
     Users.findOneAndUpdate(
       { username: req.params.username },
       {
         $set: {
           username: req.body.username,
-          password: req.body.password,
+          password: hashedPassword,
           email: req.body.email,
           birthday: req.body.birthday
         }
@@ -294,7 +345,8 @@ app.use((err, req, res, next) => {
   res.status(500).send("An error occured. Please check your code!");
 });
 
-//listen for a reqeusts
-app.listen(8080, () => {
-  console.log("Your app is listening on port 8080.");
+//looks for pre-configured port number. If nothig found, sets part to 0.0.0.0
+const port = process.env.PORT || 8080;
+app.listen(port, "0.0.0.0", () => {
+  console.log("Listening on Port " + port);
 });

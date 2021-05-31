@@ -133,13 +133,15 @@
         <td>POST</td>
         <td>
           A JSON object holding data about the user. { ID: Integer, username:
-          String, password: String, email: String, birthday: Date } Example: {
-          "username" : "Hans Peter", "password" : "Test123", "email" :
-          "test@googlemail.com", "birthday" : "15/03/1912" }
+          String, password: String, email: String, birthday: Date } Make sure
+          that the username only includes alphanumeric symbol, the birthday
+          follows the format and the email is a valid email address. Example: {
+          "username" : "HansPeter", "password" : "Test123", "email" :
+          "test@googlemail.com", "birthday" : "03/15/1912" }
         </td>
         <td>
           A JSON object holding data about the user that was added. Example: {
-          "username" : "Hans Peter", "password" : "Test123", "email" :
+          "username" : "HansPeter", "password" : "hashedPassword", "email" :
           "test@googlemail.com", "birthday" : "03/15/1912" }
         </td>
       </tr>
@@ -153,12 +155,14 @@
         <td>
           A JSON object holding updated data about the user. { ID: Integer,
           username: String, password: String, email: String, birthday: Date }
+          Make sure that the username only includes alphanumeric symbol, the
+          birthday follows the format and the email is a valid email address.
           Example: { "username" : "Hans Peter", "password" : "Test123", "email"
-          : "test@googlemail.com", "birthday" : "15/03/1912" }
+          : "test@googlemail.com", "birthday" : "03/15/1912" }
         </td>
         <td>
           A JSON object holding the new updated data about the user. Example: {
-          "username" : "Hans Peter", "password" : "Test123", "email" :
+          "username" : "Hans Peter", "password" : "hashedPassword", "email" :
           "test@googlemail.com", "birthday" : "03/15/1912" }
         </td>
       </tr>
@@ -171,7 +175,7 @@
           A JSON object holding data about the user (including the added movie).
           Example: { "favouriteMovies": [ "60a6a7c0dae586ee3e0cc29e" ], "_id":
           "60abf50382ccbe2dd8d8270f", "username": "Hans Peter", "password":
-          "new123", "email": "newtest@googlemail.com", "birthday":
+          "hashedPassword", "email": "newtest@googlemail.com", "birthday":
           "1992-03-15T08:00:00.000Z", "__v": 0 }
         </td>
       </tr>
@@ -184,7 +188,7 @@
           A JSON object holding data about the user (without the removed movie).
           Example: { "favouriteMovies": [ "60a6a7c0dae586ee3e0cc29e" ], "_id":
           "60abf50382ccbe2dd8d8270f", "username": "Hans Peter", "password":
-          "new123", "email": "newtest@googlemail.com", "birthday":
+          "hashedPassword", "email": "newtest@googlemail.com", "birthday":
           "1992-03-15T08:00:00.000Z", "__v": 0 }
         </td>
       </tr>
