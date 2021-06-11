@@ -13,7 +13,6 @@
     movies, their directors and genres. You will find a list of actors and the movies they played in.
     You will be able to sign up and create
     a list of your favourite movies. Since this is only the back-end part of the app no demonstration will be available.
-
     Check in again soon, to see the full project.
 
   </p>
@@ -24,9 +23,13 @@
 
 ### <a href="https://movie-app-alex-offner.herokuapp.com/">Live Demo</a>
 
-- Link for Postman: -https://movie-app-alex-offner.herokuapp.com/
+- Link for Postman:
 
-#Documentation
+```
+https://movie-app-alex-offner.herokuapp.com/
+```
+
+# Documentation
 
   <p>To see all the endpoints of the application and to test them out, please take a look at the documentation of the application.<p>
-  <a href="https://github.com/Alex-Offner/movie_api/blob/main/documentation.html">Documentation</a>
+### <a href="https://github.com/Alex-Offner/movie_api/blob/main/documentation.html">Documentation</a>
