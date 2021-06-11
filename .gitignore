@@ -4,3 +4,4 @@ actors.json
 moves.json
 users.json
 .vscode/
+.env
