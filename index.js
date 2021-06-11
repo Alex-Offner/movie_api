@@ -352,7 +352,7 @@ app.use((err, req, res, next) => {
 });
 
 //looks for pre-configured port number. If nothig found, sets part to 0.0.0.0
-const port = process.env.PORT || 8080;
+const port = process.env.PORT ||4000;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
 });
