@@ -49,6 +49,18 @@ mongoose.connect(process.env.CONNECTION_URI, {
 });
 
 //Get all movies
+app.get('/movies', function (req, res) {
+  Movies.find()
+    .then(function (movies) {
+      res.status(201).json(movies);
+    })
+    .catch(function (error) {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    })
+})
+
+/*
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -63,6 +75,7 @@ app.get(
       });
   }
 );
+*/
 
 //Get a movie by moviename
 app.get(
@@ -352,7 +365,7 @@ app.use((err, req, res, next) => {
 });
 
 //looks for pre-configured port number. If nothig found, sets part to 0.0.0.0
-const port = process.env.PORT ||4000;
+const port = process.env.PORT || 4000;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
 });
