@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-
 let userSchema = mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
@@ -18,4 +17,5 @@ userSchema.methods.validatePassword = function(password) {
   return bcrypt.compareSync(password, this.password);
 };
 
+let User = mongoose.model("User", userSchema);
 module.exports.User = User;
