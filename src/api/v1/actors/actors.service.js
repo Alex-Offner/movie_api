@@ -1,0 +1,1 @@
+const Actors = require("./actor.model");
