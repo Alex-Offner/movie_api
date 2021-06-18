@@ -1,4 +1,23 @@
-app.get(
+const movieServices = require('./movies.service');
+
+
+const getAllMovies = async (req, res) => {
+  try {
+    const foundMovies = await moviesServices.getAllMovies()
+    return res.status(201).json(foundMovies)
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error: " + error);
+  }
+
+
+}
+
+module.exports = {
+  getAllMovies
+};
+
+-pp.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -12,6 +31,8 @@ app.get(
       });
   }
 );
+
+
 
 //Get a movie by moviename
 app.get(
