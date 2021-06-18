@@ -1,22 +1,35 @@
 const Movies = reuqire("./movies.model");
 
+const getAllMovies = async () => {
+  const foundMovies = await Movies.find({})
+  return foundMovies;
+}
 
-//how to create functions for a get request???
-const getMovies = async inputData
+//Add endpoint path here?
+const getMovieByTitle = async () => {
+  const foundMovie = await Movies.find(
+    { Title: req.params.Title }
+  );
+  return foundMovie;
+}
 
+const getGenreByName = async () => {
+  const foundGenre = await Movies.find(
+    { "Genre.Name": req.params.Name }
+  );
+  return foundGenre;
+}
 
+const getDirectorByName = async () => {
+  const foundDirector = await Movies.find(
+    { "Director.Name": req.params.Name }
+  );
+  return foundDirector;
+}
 
-app.get(
-  "/movies",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Movies.find()
-      .then(movies => {
-        res.status(201).json(movies);
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
+module.exports = {
+  getAllMovies,
+  getMovieByTitle,
+  getGenreByName,
+  getDirectorByName
+}
