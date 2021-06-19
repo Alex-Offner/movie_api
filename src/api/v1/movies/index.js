@@ -8,4 +8,4 @@ moviewRouter
   .route('/')
   .get(passport.authenticate("jwt", { session: false }), movieControllers.getAllMovies);
 
-module.exports = router
+module.exports = movieRouter
