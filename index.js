@@ -37,11 +37,11 @@ const Users = Models.User;
 const Actors = Models.Actor;
 
 //connecting to my database [myFlixDB]
-/*mongoose.connect("mongodb://localhost:27017/[myFlixDB]", {
+/* mongoose.connect("mongodb://localhost:27017/[myFlixDB]", {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}); */
-
+});
+ */
 //connecting to my online database on mongodb.com
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
@@ -278,6 +278,17 @@ app.put(
     );
   }
 );
+
+app.get('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Users.findOne({ username: req.params.username })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    })
+});
 
 //Add a movie to user's favourite list
 app.post(
