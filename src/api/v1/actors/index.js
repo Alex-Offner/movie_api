@@ -8,6 +8,11 @@ actorsRouter
   .get(
     passport.authenticate("jwt", { session: false }),
     actorsControllers.getAllActors
-  );
+  )
+  .route("/:Name")
+  .get(
+    passport.authenticate("jwt", { session: false }),
+    actorsControllers.getActorByName
+  )
 
 module.exports = actorsRouter;

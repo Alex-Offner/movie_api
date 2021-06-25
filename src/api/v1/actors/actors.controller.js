@@ -10,10 +10,11 @@ const getAllActors = async (req, res) => {
   }
 }
 
-const getActorByName = async (req, res, Name) => {
+const getActorByName = async (req, res) => {
+  const { Name } = req.params
   try {
     const foundActor = await moviesServices.getActorByName(
-      { Name: req.params.Name }
+      { Name }
     )
     return res.status(201).json(foundActor)
   } catch (error) {
