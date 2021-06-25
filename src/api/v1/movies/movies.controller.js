@@ -12,10 +12,11 @@ const getAllMovies = async (req, res) => {
 }
 
 //Add endpoint? How to access params?
-const getMovieByTitle = async (req, res, Title) => {
+const getMovieByTitle = async (req, res) => {
+  const { Title } = req.params
   try {
     const foundMovie = await moviesServices.getMovieByTitle(
-      { Title: req.params.Title }
+      { Title }
     )
     return res.status(201).json(foundMovie)
   } catch (error) {
@@ -25,10 +26,11 @@ const getMovieByTitle = async (req, res, Title) => {
 }
 
 //Arguements for async function???
-const getGenreByName = async (req, res, Genre.Name) => {
+const getGenreByName = async (req, res) => {
+  const { Genre } = req.params
   try {
     const foundGenre = await moviesServices.getGenreByName(
-      { "Genre.Name": req.params.Name }
+      { Genre }
     )
     if (Genre.Name) {
       return res.status(201).json(foundGenre)
@@ -41,10 +43,11 @@ const getGenreByName = async (req, res, Genre.Name) => {
   }
 }
 
-const getDirectorByName = async (req, res, Director.Name) => {
+const getDirectorByName = async (req, res) => {
+  const { Name } = req.params
   try {
     const foundDirector = await moviesServices.getDirectorByName(
-      { "Director.Name": req.params.Name }
+      { Director }
     )
     if (Director.Name) {
       return res.status(201).json(foundDirector)
