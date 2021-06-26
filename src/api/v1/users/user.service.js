@@ -13,11 +13,11 @@ const user  = await Users.create(payload)
       return user
 }
 
-const updateUserByUsername = async(inputData)=>{
+const updateUserByUsername = async(inputData, username)=>{
     const {username, password, email,birthday } = inputData
    let hashedPassword = Users.hashPassword(password);
    const updatedUser = await Users.findOneAndUpdate(
-      { username: req.params.username },
+      { username},
       {
         $set: {
            username: username,
