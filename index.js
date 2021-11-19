@@ -162,6 +162,20 @@ app.get(
   }
 );
 
+
+//Get the user by username
+app.get('/users/:username', passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Users.findOne({ Username: req.params.username }) // finds the user by username
+      .then((user) => {
+        res.json(user); // returns user info in JSON format
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+  });
+
 //POST a new user with a username
 /* A JSON format is required
 { ID: Integer,
